@@ -1,0 +1,67 @@
+//atribuir variáveis dos botões
+int BA = 2;
+int VA = 0;
+int BB = 3;
+int VB = 0;
+
+
+
+//atribuir variáveis do display
+int SEGA = 13;
+int SEGB = 12;
+int SEGC = 11;
+int SEGD = 10;
+int SEGE = 9;
+int SEGF = 8;
+int SEGG = 7;
+
+
+
+void setup() 
+{
+  //ATRIBUIR BOTÕES COMO ENTRADA
+   pinMode (BA, INPUT);
+   pinMode (BB, INPUT);
+
+  // Atribuir os pinos de segmentos como saidas
+  pinMode (SEGA, OUTPUT);
+  pinMode (SEGB, OUTPUT);
+  pinMode (SEGC, OUTPUT);
+  pinMode (SEGD, OUTPUT);
+  pinMode (SEGE, OUTPUT);
+  pinMode (SEGF, OUTPUT);
+  pinMode (SEGG, OUTPUT);
+
+  Serial.begin(9600);  //Para comecçar a troca de dados do arduino pelo pino TX e RX
+
+}
+
+void loop()
+{ //..................Leitura das Entradas...................
+      VA = digitalRead (BA);
+      VB = digitalRead (BB);
+
+
+  //.................Impressão de Mensagens na Serial....................
+
+      Serial.print("O Estado do Botão A É:");
+      Serial.println(VA);
+      Serial.print("O Estado do Botão B É:");
+      Serial.println(VB);
+
+  //..................Atualização das Saídas com os valores combinácionais...................
+
+    digitalWrite(SEGA, (!VB | VA)); // "!" é barrado 
+    digitalWrite(SEGB, 1); // "|" é a porta OR
+    digitalWrite(SEGC, (!VA | VB)); // "&" é a porta AND
+    digitalWrite(SEGD, (!VB | VA));
+    digitalWrite(SEGE, !VB);
+    digitalWrite(SEGF, (!VA & !VB));
+    digitalWrite(SEGG, VA);
+
+//..................Fim do Código...................
+
+delay(500);
+
+
+}
